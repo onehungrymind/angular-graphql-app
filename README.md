@@ -1,6 +1,6 @@
-# Angular Rest App
+# Angular GraphQL App
 
-A simple REST app built using Angular, Angular Material and the Angular CLI.
+A simple GraphQL app built using Angular, Angular Material and the Angular CLI.
 
 ## Prerequisites
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
@@ -9,13 +9,11 @@ A simple REST app built using Angular, Angular Material and the Angular CLI.
 
 ### Getting Started
 
-There are two main parts to this application. The first is the REST API, for which we are using `json-server`. The second part is the Angular application server which we will start using `ng serve`.  
-
 To get started run the commands below.
 
 ```bash
-$ git clone https://github.com/onehungrymind/angular-rest-app.git
-$ cd angular-rest-app
+$ git clone https://github.com/onehungrymind/angular-graphql-app.git
+$ cd angular-graphql-app
 $ npm install
 $ npm start
 ```

@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 
+import { ApolloClient } from 'apollo-client';
+import { ApolloModule } from 'apollo-angular';
+import { provideClient } from './shared/apollo.client';
+
 import { ItemsService, NotificationsService, WidgetsService } from './shared';
 
 import { AppComponent } from './app.component';
@@ -42,7 +46,8 @@ import { ItemComponent } from './items/item/item.component';
     HttpModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    ApolloModule.forRoot(provideClient)
   ],
   providers: [
     ItemsService,
