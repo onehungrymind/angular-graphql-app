@@ -30,7 +30,8 @@ export class StudentsComponent implements OnInit {
   }
 
   getStudents() {
-    this.students = this.studentsService.students;
+    this.studentsService.all()
+      .subscribe(students => this.students = students);
   }
 
   saveStudent(student) {
@@ -42,11 +43,17 @@ export class StudentsComponent implements OnInit {
   }
 
   createStudent(student) {
+    this.studentsService.create(student)
+      .subscribe(response => this.resetCurrentStudent());
   }
 
   updateStudent(student) {
+    this.studentsService.update(student)
+      .subscribe(response => this.resetCurrentStudent());
   }
 
   deleteStudent(student) {
+    this.studentsService.delete(student)
+      .subscribe(response => this.resetCurrentStudent());
   }
 }

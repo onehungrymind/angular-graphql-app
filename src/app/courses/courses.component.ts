@@ -30,7 +30,8 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses() {
-    this.courses = this.coursesService.courses;
+    this.coursesService.all()
+      .subscribe(courses => this.courses = courses);
   }
 
   saveCourse(course) {
@@ -42,11 +43,17 @@ export class CoursesComponent implements OnInit {
   }
 
   createCourse(course) {
+    this.coursesService.create(course)
+      .subscribe(response => this.resetCurrentCourse());
   }
 
   updateCourse(course) {
+    this.coursesService.update(course)
+      .subscribe(response => this.resetCurrentCourse());
   }
 
   deleteCourse(course) {
+    this.coursesService.delete(course)
+      .subscribe(response => this.resetCurrentCourse());
   }
 }

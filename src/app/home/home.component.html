@@ -1,9 +1,11 @@
 <div class="container">
   <div class="col-50">
-    <h1>Column One</h1>
+    <app-courses-list class="col-50" [courses]="courses" [readonly]="true">
+    </app-courses-list>
   </div>
 
   <div class="col-50">
-    <h1>Column Two</h1>
+    <app-students-list class="col-50" [students]="students" [readonly]="true">
+    </app-students-list>
   </div>
 </div>
