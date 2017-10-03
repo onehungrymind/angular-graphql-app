@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 
 import 'rxjs/add/operator/map';
+import { Course } from './course.model';
 
 const AllStudentsQuery = gql`
   query allStudents {
@@ -12,16 +13,23 @@ const AllStudentsQuery = gql`
       firstName
       lastName
       active
+      courses {
+        id
+        name
+        description
+        level
+      }
     }
   }
 `;
 
 const CreateStudentMutation = gql`
-  mutation($firstName: String!, $lastName: String!, $active: Boolean!) {
+  mutation($firstName: String!, $lastName: String!, $active: Boolean!, $coursesIds: [ID!]!) {
     createStudent (
       firstName: $firstName
       lastName: $lastName
       active: $active
+      coursesIds: $coursesIds
   ) {
       id
       firstName
@@ -32,12 +40,13 @@ const CreateStudentMutation = gql`
 `;
 
 const UpdateStudentMutation = gql`
-  mutation($id:ID!, $firstName: String!, $lastName: String!, $active: Boolean!) {
+  mutation($id:ID!, $firstName: String!, $lastName: String!, $active: Boolean!, $coursesIds: [ID!]!) {
     updateStudent (
       id: $id
       firstName: $firstName
       lastName: $lastName
       active: $active
+      coursesIds: $coursesIds
   ) {
       id
       firstName
@@ -82,7 +91,8 @@ export class StudentsService {
         variables: {
           firstName: student.firstName,
           lastName: student.lastName,
-          active: student.active
+          active: student.active,
+          coursesIds: this.parseCourseIds(student.courses)
         },
         refetchQueries: [{
           query: AllStudentsQuery
@@ -97,7 +107,8 @@ export class StudentsService {
           id: student.id,
           firstName: student.firstName,
           lastName: student.lastName,
-          active: student.active
+          active: student.active,
+          coursesIds: this.parseCourseIds(student.courses)
         },
         refetchQueries: [{
           query: AllStudentsQuery
@@ -115,5 +126,11 @@ export class StudentsService {
           query: AllStudentsQuery
         }]
       });
+  }
+
+  private parseCourseIds(courses: Course[]) {
+    return courses
+      .filter(course => course.enrolled)
+      .map(course => course.id);
   }
 }

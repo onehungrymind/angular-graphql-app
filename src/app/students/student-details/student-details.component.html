@@ -18,7 +18,14 @@
       <div class="full-width">
         <md-checkbox [(ngModel)]="selectedStudent.active" name="active">Active</md-checkbox>
       </div>
-      <!-- TODO build out enrolled courses -->
+      <div class="full-width">
+        <h3>Enrolled Courses</h3>
+        <md-list>
+          <md-list-item *ngFor="let course of selectedStudent.courses">
+            <md-checkbox [(ngModel)]="course.enrolled" name="{{course.id}}">{{course.name}}</md-checkbox>
+          </md-list-item>
+        </md-list>
+      </div>
     </md-card-content>
     <md-card-actions>
       <button type="submit" md-button>Save</button>

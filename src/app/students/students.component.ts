@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Student, StudentsService } from '../shared';
+import { Course, CoursesService, Student, StudentsService } from '../shared';
 
 @Component({
   selector: 'app-students',
@@ -7,12 +7,14 @@ import { Student, StudentsService } from '../shared';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
+  courses: Course[];
   students: Student[];
   currentStudent: Student;
 
-  constructor(private studentsService: StudentsService) { }
+  constructor(private studentsService: StudentsService, private coursesService: CoursesService) { }
 
   ngOnInit() {
+    this.getCourses();
     this.getStudents();
     this.resetCurrentStudent();
   }
@@ -27,6 +29,11 @@ export class StudentsComponent implements OnInit {
 
   cancel(student) {
     this.resetCurrentStudent();
+  }
+
+  getCourses() {
+    this.coursesService.all()
+      .subscribe(courses => this.courses = courses);
   }
 
   getStudents() {

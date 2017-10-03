@@ -3,4 +3,5 @@ export interface Course {
   name: string;
   description: string;
   level: string;
+  enrolled?: boolean;
 }

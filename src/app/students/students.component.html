@@ -5,6 +5,7 @@
   </app-students-list>
 
   <app-student-details class="col-50" [student]="currentStudent"
+                       [courses]="courses"
                        (saved)="saveStudent($event)"
                        (cancelled)="cancel($event)">
   </app-student-details>
