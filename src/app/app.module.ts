@@ -7,37 +7,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
 
-import { ApolloClient } from 'apollo-client';
 import { ApolloModule } from 'apollo-angular';
 import { provideClient } from './shared/apollo.client';
 
-import { ItemsService, NotificationsService, WidgetsService } from './shared';
+import { CoursesService, NotificationsService, StudentsService } from './shared';
 
 import { AppComponent } from './app.component';
-import { ItemsComponent } from './items/items.component';
-import { ItemsListComponent } from './items/items-list/items-list.component';
-import { ItemDetailComponent } from './items/item-detail/item-detail.component';
-import { ItemsSearchComponent } from './items/items-search/items-search.component';
-import { WidgetsComponent } from './widgets/widgets.component';
-import { WidgetsListComponent } from './widgets/widgets-list/widgets-list.component';
-import { WidgetDetailComponent } from './widgets/widget-detail/widget-detail.component';
 import { HomeComponent } from './home/home.component';
-import { NewsletterComponent } from './newsletter/newsletter.component';
-import { ItemComponent } from './items/item/item.component';
+import { StudentsComponent } from './students/students.component';
+import { StudentDetailsComponent } from './students/student-details/student-details.component';
+import { StudentsListComponent } from './students/students-list/students-list.component';
+import { CoursesComponent } from './courses/courses.component';
+import { CourseDetailsComponent } from './courses/course-details/course-details.component';
+import { CoursesListComponent } from './courses/courses-list/courses-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ItemsComponent,
-    ItemsListComponent,
-    ItemDetailComponent,
-    ItemsSearchComponent,
-    WidgetsComponent,
-    WidgetsListComponent,
-    WidgetDetailComponent,
-    NewsletterComponent,
-    ItemComponent
+    StudentsComponent,
+    StudentDetailsComponent,
+    StudentsListComponent,
+    CoursesComponent,
+    CourseDetailsComponent,
+    CoursesListComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -50,9 +43,9 @@ import { ItemComponent } from './items/item/item.component';
     ApolloModule.forRoot(provideClient)
   ],
   providers: [
-    ItemsService,
+    CoursesService,
     NotificationsService,
-    WidgetsService
+    StudentsService
   ],
   bootstrap: [AppComponent]
 })

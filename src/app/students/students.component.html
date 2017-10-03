@@ -1,0 +1,11 @@
+<div class="container">
+  <app-students-list class="col-50" [students]="students"
+                     (selected)="selectStudent($event)"
+                     (deleted)="deleteStudent($event)">
+  </app-students-list>
+
+  <app-student-details class="col-50" [student]="currentStudent"
+                       (saved)="saveStudent($event)"
+                       (cancelled)="cancel($event)">
+  </app-student-details>
+</div>

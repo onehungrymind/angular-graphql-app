@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ItemComponent } from './items/item/item.component';
-import { ItemsComponent } from './items/items.component';
-import { WidgetsComponent } from './widgets/widgets.component';
+import { StudentsComponent } from './students/students.component';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, data: { animation: 'home' }},
-  {path: 'items', component: ItemsComponent, data: { animation: 'items' }},
-  {path: 'item/:id', component: ItemComponent, data: { animation: 'items' }},
-  {path: 'widgets', component: WidgetsComponent, data: { animation: 'widgets' }},
-  {path: 'profile', loadChildren: './user/user.module#UserModule', data: { animation: 'profile' }},
+  {path: '', component: HomeComponent},
+  {path: 'students', component: StudentsComponent},
+  {path: 'courses', component: CoursesComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

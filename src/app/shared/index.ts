@@ -1,5 +1,6 @@
-export { ItemsService } from './items.service';
-export { Item } from './item.model';
+export { CoursesService } from './courses.service';
 export { NotificationsService } from './notifications.service';
-export { WidgetsService } from './widgets.service';
-export { Widget } from './widget.model';
+export { StudentsService } from './students.service';
+
+export { Course } from './course.model';
+export { Student } from './student.model';
