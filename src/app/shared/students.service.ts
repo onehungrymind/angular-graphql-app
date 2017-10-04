@@ -89,10 +89,9 @@ export class StudentsService {
 
   full() {
     return this.all()
-      .switchMap(students => {
-        return this.coursesService.all()
-          .map(courses => students.map(student => this.transformStudent(student, courses)));
-      });
+      .switchMap(students => this.coursesService.all()
+        .map(courses => students.map(student => this.transformStudent(student, courses)))
+      );
   }
 
   create(student: Student) {
