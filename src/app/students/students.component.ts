@@ -37,7 +37,7 @@ export class StudentsComponent implements OnInit {
   }
 
   getStudents() {
-    this.studentsService.all()
+    this.studentsService.full()
       .subscribe(students => this.students = students);
   }
 

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Student } from './student.model';
+import { Course } from './course.model';
+import { CoursesService } from './courses.service';
+
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 
-import 'rxjs/add/operator/map';
-import { Course } from './course.model';
+import 'rxjs/add/operator/switchMap';
 
 const AllStudentsQuery = gql`
   query allStudents {
@@ -75,7 +77,7 @@ interface QueryResponse {
 
 @Injectable()
 export class StudentsService {
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, private coursesService: CoursesService) {
   }
 
   all() {
@@ -83,6 +85,14 @@ export class StudentsService {
         query: AllStudentsQuery
       })
       .map(({data}) => data.allStudents);
+  }
+
+  full() {
+    return this.all()
+      .switchMap(students => {
+        return this.coursesService.all()
+          .map(courses => students.map(student => this.transformStudent(student, courses)));
+      });
   }
 
   create(student: Student) {
@@ -132,5 +142,19 @@ export class StudentsService {
     return courses
       .filter(course => course.enrolled)
       .map(course => course.id);
+  }
+
+  private transformStudent(student: Student, allCourses: Course[]) {
+    return Object.assign({}, student, { courses: this.buildCourses(student.courses, allCourses)});
+  }
+
+  private buildCourses(enrolledCourses: Course[], allCourses: Course[]) {
+    return allCourses.map(course => {
+      return Object.assign({}, course, {enrolled: this.isEnrolled(course, enrolledCourses)})
+    })
+  }
+
+  private isEnrolled(course: Course, enrolledCourses: Course[]) {
+    return !!enrolledCourses.find(c => c.id === course.id);
   }
 }

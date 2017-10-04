@@ -18,7 +18,7 @@
       <div class="full-width">
         <md-checkbox [(ngModel)]="selectedStudent.active" name="active">Active</md-checkbox>
       </div>
-      <div class="full-width">
+      <div class="full-width" *ngIf="selectedStudent.id">
         <h3>Enrolled Courses</h3>
         <md-list>
           <md-list-item *ngFor="let course of selectedStudent.courses">
