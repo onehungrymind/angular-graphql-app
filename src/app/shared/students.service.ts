@@ -8,6 +8,17 @@ import { Apollo } from 'apollo-angular';
 
 import 'rxjs/add/operator/switchMap';
 
+const fragments = {
+  courses: gql`
+    fragment courseFields on Course {
+      id
+      name
+      description
+      level
+    }
+  `
+};
+
 const AllStudentsQuery = gql`
   query allStudents {
     allStudents {
@@ -16,13 +27,11 @@ const AllStudentsQuery = gql`
       lastName
       active
       courses {
-        id
-        name
-        description
-        level
+        ...courseFields
       }
     }
   }
+  ${fragments.courses}
 `;
 
 const CreateStudentMutation = gql`
