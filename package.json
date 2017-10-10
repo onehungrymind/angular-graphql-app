@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"npm run graphql-server\" \"ng serve\"",
+    "start": "concurrently \"npm run rest-server\" \"ng serve\"",
     "rest-server": "json-server server/api/db.json --watch",
     "graphql-server": "json-graphql-server ./server/graphql/db.js --watch",
     "build": "ng build",
