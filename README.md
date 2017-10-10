@@ -9,9 +9,14 @@ A simple GraphQL app built using Angular, Angular Material and the Angular CLI.
 - Node.js v6.9+ and NPM v3.x – we recommend using [NVM (Linux/Mac)](https://github.com/creationix/nvm) or [NVM-Windows (Windows)](https://github.com/coreybutler/nvm-windows)
 - Install Angular CLI via `npm install -g @angular/cli`
 
-### Getting Started
+## Getting Started
+There are two parts to this project, the Angular front-end and the GraphQL backend.
 
-To get started run the commands below.
+### Back-end
+To set up and run the backend, follow the directions at [fem-graphql-server](https://github.com/chenkie/fem-graphql-server). When you have finished with that, you will have a GraphQL server running at `http://localhost:8080`. To view an interactive UI for querying the server, go to [http://localhost:8080/graphql](http://localhost:8080/graphql).
+
+### Front-end
+Run the following commands:
 
 ```bash
 $ git clone https://github.com/onehungrymind/angular-graphql-app.git
