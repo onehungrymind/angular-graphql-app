@@ -25,7 +25,7 @@ $ npm install
 $ npm start
 ```
 
-Then navigate to [http://localhost:4200](http://localhost:4200/#/items) in your browser.
+Then navigate to [http://localhost:4200](http://localhost:4200) in your browser.
 
 > Note: the above terminal commands are for Mac. Remember to substitute the appropriate commands for your OS.
 
