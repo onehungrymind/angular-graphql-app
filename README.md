@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/1544557/31397395-c58d52d8-ad9a-11e7-9828-3e4b3c252345.png)
+
 # Angular GraphQL App
 
 A simple GraphQL app built using Angular, Angular Material and the Angular CLI.
