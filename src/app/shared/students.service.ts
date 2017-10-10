@@ -1,99 +1,23 @@
+
+import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Student } from './student.model';
 import { Course } from './course.model';
 import { CoursesService } from './courses.service';
 
-import gql from 'graphql-tag';
-import { Apollo } from 'apollo-angular';
-
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-const fragments = {
-  courses: gql`
-    fragment courseFields on Course {
-      id
-      name
-      description
-      level
-    }
-  `
-};
-
-const AllStudentsQuery = gql`
-  query allStudents {
-    allStudents {
-      id
-      firstName
-      lastName
-      active
-      courses {
-        ...courseFields
-      }
-    }
-  }
-  ${fragments.courses}
-`;
-
-const CreateStudentMutation = gql`
-  mutation($firstName: String!, $lastName: String!, $active: Boolean!, $coursesIds: [ID!]!) {
-    createStudent (
-      firstName: $firstName
-      lastName: $lastName
-      active: $active
-      coursesIds: $coursesIds
-  ) {
-      id
-      firstName
-      lastName
-      active
-    }
-  }
-`;
-
-const UpdateStudentMutation = gql`
-  mutation($id:ID!, $firstName: String!, $lastName: String!, $active: Boolean!, $coursesIds: [ID!]!) {
-    updateStudent (
-      id: $id
-      firstName: $firstName
-      lastName: $lastName
-      active: $active
-      coursesIds: $coursesIds
-  ) {
-      id
-      firstName
-      lastName
-      active
-    }
-  }
-`;
-
-const DeleteStudentMutation = gql`
-  mutation($id:ID!) {
-    deleteStudent (
-      id: $id
-    ) {
-      id
-      firstName
-      lastName
-      active
-    }
-  }
-`;
-
-interface QueryResponse {
-  allStudents
-}
+const BASE_URL = 'http://localhost:3000/students/';
+const HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
 @Injectable()
 export class StudentsService {
-  constructor(private apollo: Apollo, private coursesService: CoursesService) {
-  }
+  constructor(private http: Http, private coursesService: CoursesService) {}
 
   all() {
-    return this.apollo.watchQuery<QueryResponse>({
-        query: AllStudentsQuery
-      })
-      .map(({data}) => data.allStudents);
+    return this.http.get(BASE_URL)
+      .map(res => res.json());
   }
 
   full() {
@@ -103,47 +27,24 @@ export class StudentsService {
       );
   }
 
+  load(id) {
+    return this.http.get(`${BASE_URL}${id}`)
+      .map(res => res.json());
+  }
+
   create(student: Student) {
-    return this.apollo.mutate({
-        mutation: CreateStudentMutation,
-        variables: {
-          firstName: student.firstName,
-          lastName: student.lastName,
-          active: student.active,
-          coursesIds: this.parseCourseIds(student.courses)
-        },
-        refetchQueries: [{
-          query: AllStudentsQuery
-        }]
-      });
+    return this.http.post(`${BASE_URL}`, JSON.stringify(student), HEADER)
+      .map(res => res.json());
   }
 
   update(student: Student) {
-    return this.apollo.mutate({
-        mutation: UpdateStudentMutation,
-        variables: {
-          id: student.id,
-          firstName: student.firstName,
-          lastName: student.lastName,
-          active: student.active,
-          coursesIds: this.parseCourseIds(student.courses)
-        },
-        refetchQueries: [{
-          query: AllStudentsQuery
-        }]
-      });
+    return this.http.put(`${BASE_URL}${student.id}`, JSON.stringify(student), HEADER)
+      .map(res => res.json());
   }
 
   delete(student: Student) {
-    return this.apollo.mutate({
-        mutation: DeleteStudentMutation,
-        variables: {
-          id: student.id
-        },
-        refetchQueries: [{
-          query: AllStudentsQuery
-        }]
-      });
+    return this.http.delete(`${BASE_URL}${student.id}`)
+      .map(res => res.json());
   }
 
   private parseCourseIds(courses: Course[]) {
@@ -162,7 +63,7 @@ export class StudentsService {
     })
   }
 
-  private isEnrolled(course: Course, enrolledCourses: Course[]) {
-    return !!enrolledCourses.find(c => c.id === course.id);
+  private isEnrolled(course: Course, enrolledCourses) {
+    return !!enrolledCourses.find(c => c === course.id);
   }
 }
